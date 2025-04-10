@@ -1,6 +1,6 @@
 import streamlit as st
 from interview_agent import InterviewAgent
-# import json
+import json
 from openai import OpenAI
 from u_profile import generate_user_profile, clean_profile, save_profile
 import firebase_admin
