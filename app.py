@@ -75,6 +75,33 @@ with st.sidebar:
     </style>
 """, unsafe_allow_html=True)
 
+        # Button to trigger profile download
+    if st.button("Profile"):
+        # Fetching the profile data from database
+        doc_ref = db.collection("profiles").document("current_user")
+        doc = doc_ref.get()
+
+        if doc.exists:
+            profile_data = doc.to_dict()  
+
+            # Saving the profile data as a .txt file 
+            profile_filename = "profile.txt"
+            with open(profile_filename, 'w') as f:
+                # Writing the profile data as text 
+                f.write(json.dumps(profile_data, indent=4))  
+
+            # Triggering the file download
+            with open(profile_filename, "rb") as file:
+                st.download_button(
+                    label="Downloading Profile...",
+                    data=file,
+                    file_name="profile.txt",
+                    mime="text/plain",
+                    
+                )
+        else:
+            st.error("Take the interview first!")
+
     if st.button("Interview Agent"):
     # fetching user profile from database for deleting
         doc_ref = db.collection("profiles").document("current_user")
