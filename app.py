@@ -75,7 +75,7 @@ with st.sidebar:
     </style>
 """, unsafe_allow_html=True)
 
-    if st.button("Delete Profile"):
+    if st.button("Interview Agent"):
     # fetching user profile from database for deleting
         doc_ref = db.collection("profiles").document("current_user")
 
