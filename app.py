@@ -34,12 +34,12 @@ if "interview_agent" not in st.session_state:
     st.session_state.follow_up_count = 0
     st.session_state.conversation_saved = False  
 
-# Custom CSS
-st.markdown("""<style>
-    .stChatInput textarea { min-height: 150px; }
-    .stMarkdown { padding: 1rem; border-radius: 0.5rem; }
-    .assistant-message { background-color: #f0f2f6; }
-</style>""", unsafe_allow_html=True)
+# # Custom CSS
+# st.markdown("""<style>
+#     .stChatInput textarea { min-height: 150px; }
+#     .stMarkdown { padding: 1rem; border-radius: 0.5rem; }
+#     .assistant-message { background-color: #f0f2f6; }
+# </style>""", unsafe_allow_html=True)
 
 # Displaying title
 st.markdown('<h1 class="title" style="text-align: center; font-size: 80px; color: #E041B1;">Prism</h1>', unsafe_allow_html=True)
