@@ -6,6 +6,7 @@ from u_profile import generate_user_profile, clean_profile, save_profile
 import firebase_admin
 from firebase_admin import credentials, firestore
 from twin import generate_recommendations, load_user_profile
+import time
 
 # fetching openai key 
 openai_key = st.secrets["api"]["key"]
@@ -34,7 +35,7 @@ if "interview_agent" not in st.session_state:
     st.session_state.follow_up_count = 0
     st.session_state.conversation_saved = False  
 
-# # Custom CSS
+# Custom CSS
 # st.markdown("""<style>
 #     .stChatInput textarea { min-height: 150px; }
 #     .stMarkdown { padding: 1rem; border-radius: 0.5rem; }
@@ -74,8 +75,8 @@ with st.sidebar:
         }
     </style>
 """, unsafe_allow_html=True)
-
-        # Button to trigger profile download
+    
+    # Button to trigger profile download
     if st.button("Profile"):
         # Fetching the profile data from database
         doc_ref = db.collection("profiles").document("current_user")
@@ -101,6 +102,7 @@ with st.sidebar:
                 )
         else:
             st.error("Take the interview first!")
+
 
     if st.button("Interview Agent"):
     # fetching user profile from database for deleting
@@ -148,7 +150,7 @@ else:
     # Defining main interview agent UI
     
     st.markdown('<p style="text-align: center; font-size: 18px;">Create your digital twin and get personalized recommendations</p>', unsafe_allow_html=True)
-
+    
     # Displaying chat history
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
@@ -156,7 +158,7 @@ else:
 
     # Defining main Interview Logic
     agent = st.session_state.interview_agent
-
+    
     if agent.current_phase < len(agent.phases):
         current_phase = agent.phases[agent.current_phase]
         
@@ -169,9 +171,12 @@ else:
                 st.rerun()
 
             # Getting user response
-            user_input = st.chat_input("Type your answer here...")
+            # unique_key = str(time.time())
+            # user_input = st.text_input(label='Input text..' , placeholder = "Type your answer here..." , key=unique_key)
+            user_input = st.chat_input(placeholder='Type your answer here')
             if user_input:
                 st.session_state.messages.append({"role": "user", "content": user_input})
+            
                 # Storing response
                 agent.conversation.append({
                     "question": current_q,
