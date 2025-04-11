@@ -38,7 +38,7 @@ def generate_phase_summary(phase, data):
     client = OpenAI(api_key=openai_key)
 
     response = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo-16k",
         messages=[
             {"role": "system", "content": "You are a professional profile summarizer."},
             {"role": "user", "content": prompt}
