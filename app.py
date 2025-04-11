@@ -2,7 +2,8 @@ import streamlit as st
 from interview_agent import InterviewAgent
 import json
 from openai import OpenAI
-from u_profile import generate_user_profile, clean_profile, save_profile
+# from u_profile import generate_user_profile, clean_profile, save_profile
+from u_profile import generate_full_profile_by_phase, save_profile
 import firebase_admin
 from firebase_admin import credentials, firestore
 from twin import generate_recommendations, load_user_profile
@@ -233,8 +234,9 @@ else:
                     interview_data = {}
 
                 # Generating and cleaning the profile
-                profile = generate_user_profile(interview_data)
-                cleaned_profile = clean_profile(profile)
+                cleaned_profile = generate_full_profile_by_phase(interview_data)
+                # profile = generate_user_profile(interview_data)
+                # cleaned_profile = clean_profile(profile)
 
                 # Saving the profile to Firebase
                 save_profile(cleaned_profile)
